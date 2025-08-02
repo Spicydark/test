@@ -13,57 +13,75 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Controller responsible for handling API endpoints related to candidate profiles.
+ */
 @RestController
 @RequestMapping("/candidate")
 public class CandidateController {
 
+    /**
+     * Injected repository for candidate profile data access.
+     */
     @Autowired
     private CandidateProfileRepository candidateProfileRepository;
 
+    /**
+     * Injected repository for user data access, needed to link profiles to users.
+     */
     @Autowired
     private UserRepository userRepository;
 
     /**
-     * Endpoint for a logged-in JOB_SEEKER to create or update their profile.
-     * It links the profile to their user account.
-     * @param profile The candidate profile data from the request body.
-     * @return The saved candidate profile.
+     * Handles POST requests to create or update a candidate's profile.
+     * This endpoint is secured and ensures that only a logged-in JOB_SEEKER
+     * can modify their own profile.
+     *
+     * @param profile The candidate profile data sent in the request body.
+     * @return A ResponseEntity containing the saved profile or an error message.
      */
     @PostMapping("/profile")
     public ResponseEntity<?> saveOrUpdateProfile(@RequestBody CandidateProfile profile) {
-        // Get the username of the currently authenticated user
+        // Retrieve the currently authenticated user's details from the security context.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
 
-        // Find the user in the database
+        // Fetch the full user object from the database to get their ID and role.
         Optional<User> userOptional = userRepository.findByUsername(currentUsername);
         if (userOptional.isEmpty()) {
-            return new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Authenticated user not found in the database!", HttpStatus.NOT_FOUND);
         }
         User currentUser = userOptional.get();
 
-        // This check is a good second layer, but the primary check should be in SecurityConfig.
+        // Although SecurityConfig provides the primary layer of role-based security,
+        // this check adds a secondary, explicit verification.
         if (!"JOB_SEEKER".equals(currentUser.getRole())) {
-             return new ResponseEntity<>("Access Denied: Only JOB_SEEKER can create a profile.", HttpStatus.FORBIDDEN);
+             return new ResponseEntity<>("Access Denied: This action is reserved for JOB_SEEKER role.", HttpStatus.FORBIDDEN);
         }
 
-        // Set the userId on the profile to link it to the user account
+        // Associate this profile with the currently logged-in user by setting the userId.
+        // This prevents a user from creating a profile for someone else.
         profile.setUserId(currentUser.getId());
         CandidateProfile savedProfile = candidateProfileRepository.save(profile);
+
         return new ResponseEntity<>(savedProfile, HttpStatus.OK);
     }
 
     /**
-     * Endpoint to get a candidate's profile by their user ID.
-     * @param userId The ID of the user whose profile is being requested.
-     * @return The candidate's profile if found.
+     * Handles GET requests to retrieve a candidate's profile using their user ID.
+     * This endpoint is accessible to any authenticated user (recruiters or job seekers).
+     *
+     * @param userId The unique ID of the user whose profile is being requested.
+     * @return A ResponseEntity containing the found profile or a 404 Not Found error.
      */
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getProfileByUserId(@PathVariable String userId) {
         Optional<CandidateProfile> profileOptional = candidateProfileRepository.findByUserId(userId);
+
         if (profileOptional.isEmpty()) {
-            return new ResponseEntity<>("Profile not found for this user.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Profile not found for the specified user.", HttpStatus.NOT_FOUND);
         }
+
         return new ResponseEntity<>(profileOptional.get(), HttpStatus.OK);
     }
 }

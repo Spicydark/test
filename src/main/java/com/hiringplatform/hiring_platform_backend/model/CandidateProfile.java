@@ -5,21 +5,49 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 /**
- * This class represents a candidate's professional profile.
- * Each instance will be stored as a document in the "CandidateProfiles" collection.
+ * Represents a candidate's detailed professional profile in the database.
+ * This model is distinct from the User model, as it stores application-specific
+ * information rather than authentication credentials.
  */
 @Document(collection = "CandidateProfiles")
 public class CandidateProfile {
 
+    /**
+     * The unique identifier for the candidate profile document.
+     */
     @Id
     private String id;
 
-    private String userId; // This will link the profile to a User account (from the 'users' collection)
+    /**
+     * A foreign key linking this profile to a specific User account in the 'users' collection.
+     * This ensures that each profile is owned by a registered user.
+     */
+    private String userId;
+
+    /**
+     * The full name of the candidate.
+     */
     private String fullName;
+
+    /**
+     * The contact email address for the candidate.
+     */
     private String email;
-    private int totalExperience; // in years
+
+    /**
+     * The candidate's total years of professional experience.
+     */
+    private int totalExperience;
+
+    /**
+     * A list of the candidate's professional skills.
+     */
     private List<String> skills;
-    private String resumeUrl; // A link to an externally hosted resume (e.g., S3, Google Drive)
+
+    /**
+     * A URL pointing to the candidate's externally hosted resume (e.g., in a cloud storage service).
+     */
+    private String resumeUrl;
 
     // --- Getters and Setters ---
 

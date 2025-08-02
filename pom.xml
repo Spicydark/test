@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version> <!-- ✅ Use stable, non-deprecated version -->
+		<version>3.2.5</version>
 		<relativePath/>
 	</parent>
 
@@ -40,6 +40,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+        
+        <!-- === NEW DEPENDENCY FOR SENDING EMAIL === -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!-- ======================================== -->
 
 		<!-- JWT Token Support -->
 		<dependency>

@@ -7,18 +7,20 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * This repository interface manages the CandidateProfile collection in MongoDB.
- * It provides standard CRUD (Create, Read, Update, Delete) operations out of the box.
+ * A Spring Data MongoDB repository for managing CandidateProfile entities.
+ * This interface provides a high-level abstraction for database operations,
+ * including standard CRUD functionality inherited from MongoRepository.
  */
 @Repository
 public interface CandidateProfileRepository extends MongoRepository<CandidateProfile, String> {
 
     /**
-     * Finds a candidate's profile based on their associated user ID.
-     * This will be useful for fetching a profile for the currently logged-in user.
+     * Defines a custom query method to find a candidate's profile by their associated user ID.
+     * This is crucial for linking a candidate's professional details to their login account.
      *
      * @param userId The unique ID of the user from the 'users' collection.
-     * @return An Optional containing the CandidateProfile if found.
+     * @return An Optional containing the CandidateProfile if one is found for the given userId,
+     * otherwise an empty Optional.
      */
     Optional<CandidateProfile> findByUserId(String userId);
 

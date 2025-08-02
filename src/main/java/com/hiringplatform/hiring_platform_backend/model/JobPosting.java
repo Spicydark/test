@@ -4,73 +4,28 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
-/**
- * This class represents a single job posting in our database.
- * Each instance of this class will be stored as a document in the "JobPostings" collection.
- */
-@Document(collection = "JobPostings") // Tells MongoDB to store this in a collection named "JobPostings"
+@Document(collection = "JobPostings")
 public class JobPosting {
 
-    @Id // Marks this field as the primary key for the document
+    @Id
     private String id;
-
+    private String recruiterId; 
     private String role;
     private String description;
-    private int experience; // Required experience in years
-    private List<String> skillSet; // A list of required skills
+    private int experience;
+    private List<String> skillSet;
 
     // --- Getters and Setters ---
-    // Lombok will generate these for us automatically, but we write them here for clarity.
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getExperience() {
-        return experience;
-    }
-
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
-    public List<String> getSkillSet() {
-        return skillSet;
-    }
-
-    public void setSkillSet(List<String> skillSet) {
-        this.skillSet = skillSet;
-    }
-
-    @Override
-    public String toString() {
-        return "JobPosting{" +
-                "id='" + id + '\'' +
-                ", role='" + role + '\'' +
-                ", description='" + description + '\'' +
-                ", experience=" + experience +
-                ", skillSet=" + skillSet +
-                '}';
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getRecruiterId() { return recruiterId; } 
+    public void setRecruiterId(String recruiterId) { this.recruiterId = recruiterId; } 
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+    public int getExperience() { return experience; }
+    public void setExperience(int experience) { this.experience = experience; }
+    public List<String> getSkillSet() { return skillSet; }
+    public void setSkillSet(List<String> skillSet) { this.skillSet = skillSet; }
 }
-

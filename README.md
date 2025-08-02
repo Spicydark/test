@@ -79,93 +79,44 @@ API Endpoints
 The following is a complete list of the available API endpoints.
 
 Authentication
-Method
+Register User
+POST   /register
+Role: Public
+Description: Registers a new user with a RECRUITER or JOB_SEEKER role.
 
-Endpoint
-
-Required Role
-
-Description
-
-POST
-
-/register
-
-Public
-
-Registers a new user with a RECRUITER or JOB_SEEKER role.
-
-POST
-
-/login
-
-Public
-
-Authenticates a user and returns a JWT.
+Login User
+POST   /login
+Role: Public
+Description: Authenticates a user and returns a JWT.
 
 Job Posts
-Method
+Get All Jobs
+GET    /posts/all
+Role: Public
+Description: Retrieves a list of all job postings.
 
-Endpoint
+Search Jobs
+GET    /posts/search/{text}
+Role: Public
+Description: Searches for jobs based on a keyword.
 
-Required Role
+Add New Job
+POST   /posts/add
+Role: RECRUITER
+Description: Creates a new job posting.
 
-Description
-
-GET
-
-/posts/all
-
-Public
-
-Retrieves a list of all job postings.
-
-GET
-
-/posts/search/{text}
-
-Public
-
-Searches for jobs based on a keyword.
-
-POST
-
-/posts/add
-
-RECRUITER
-
-Creates a new job posting.
-
-POST
-
-/posts/apply/{jobId}
-
-JOB_SEEKER
-
-Applies for a job, sending an email to the recruiter.
+Apply for Job
+POST   /posts/apply/{jobId}
+Role: JOB_SEEKER
+Description: Applies for a job, sending an email to the recruiter.
 
 Candidate Profiles
-Method
+Create/Update Profile
+POST   /candidate/profile
+Role: JOB_SEEKER
+Description: Creates or updates the logged-in job seeker's profile.
 
-Endpoint
-
-Required Role
-
-Description
-
-POST
-
-/candidate/profile
-
-JOB_SEEKER
-
-Creates or updates the logged-in job seeker's profile.
-
-GET
-
-/candidate/profile/{userId}
-
-Authenticated
-
-Retrieves the profile of a specific candidate.
-
+Get Profile
+GET    /candidate/profile/{userId}
+Role: Authenticated
+Description: Retrieves the profile of a specific candidate.

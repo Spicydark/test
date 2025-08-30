@@ -1,0 +1,126 @@
+/* Global App Styles */
+.App {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Custom Utility Classes */
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* Custom Button Styles */
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+/* Card Enhancements */
+.card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Navigation Enhancements */
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+/* Badge Styles */
+.badge {
+  font-size: 0.75em;
+}
+
+/* Form Enhancements */
+.form-control:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Alert Customizations */
+.alert {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+/* Loading States */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .lead {
+    font-size: 1.1rem;
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
+}
+
+/* Job Card Styling */
+.job-card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Profile Preview Styling */
+.profile-preview {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #6c757d #f8f9fa;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #6c757d;
+  border-radius: 3px;
+}
